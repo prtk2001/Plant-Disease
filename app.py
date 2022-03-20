@@ -1,11 +1,9 @@
 from flask import Flask, render_template, request, send_from_directory
 import cv2
-import keras
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, BatchNormalization, Flatten
+
+
 import numpy as np
-from numpy import loadtxt
-from keras.models import load_model
+
 import tensorflow as tf
 import tensorflow_hub as hub
 import json
@@ -13,7 +11,7 @@ model = tf.keras.models.load_model("models/mobilenetv1_model.h5",custom_objects=
 model.build((None, 224, 224, 3))
 model1 = tf.keras.models.load_model("models/resnet_model.h5",custom_objects={'KerasLayer':hub.KerasLayer})
 model1.build((None, 224, 224, 3))
-model2 = tf.keras.models.load_model("models/cnnv1_model.h5",custom_objects={'KerasLayer':hub.KerasLayer})
+model2 = tf.keras.models.load_model("models/cnn.h5",custom_objects={'KerasLayer':hub.KerasLayer})
 model2.build((None, 224, 224, 3))
 model3 = tf.keras.models.load_model("models/efficientv2.h5",custom_objects={'KerasLayer':hub.KerasLayer})
 model3.build((None, 224, 224, 3))
