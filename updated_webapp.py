@@ -85,7 +85,7 @@ def s3_get_keras_model(model_name: str) -> tf.keras.Model:
       with tempfile.TemporaryDirectory() as tempdir:
         
     
-        s3fs.get(f"{BUCKET_NAME}/{model_name}.zip", f"{tempdir}/{model_name}.zip")
+        S3FileSystem.get(f"{BUCKET_NAME}/{model_name}.zip", f"{tempdir}/{model_name}.zip")
         with zipfile.ZipFile(f"{tempdir}/{model_name}.zip") as zip_ref:
             zip_ref.extractall(f"{tempdir}/{model_name}")
         return tf.keras.models.load_model(f"{tempdir}/{model_name}")
