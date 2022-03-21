@@ -15,7 +15,7 @@ fs = s3fs.S3FileSystem(anon=False)
 @st.cache(ttl=600)
 def read_file(filename):
     with fs.open(filename) as f:
-        return f.read().decode("utf-8")
+        return f.read()
 
 
 
