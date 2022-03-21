@@ -88,9 +88,9 @@ def main():
         
 
 def mobilenet_predict(image):
-    classifier_model_mobilenet = read_file("plantdiseasemodel/mobilenetv1_model.h5")
+    model_mobilenet = read_file("plantdiseasemodel/mobilenetv1_model.h5")
     with st.spinner('Loading Model...'):
-        classifier_model_mobilenet = tf.keras.models.load_model(r'models/mobilenetv1_model.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
+        classifier_model_mobilenet = tf.keras.models.load_model(r'model_mobilenet',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     print(image)
     IMAGE_SHAPE = (224, 224)
     image = cv2.resize(image, (IMAGE_SHAPE[0], IMAGE_SHAPE[1]) )
@@ -105,10 +105,10 @@ def mobilenet_predict(image):
     return {classes[class_idx]: probabilities[class_idx]}
 
 def resnet_predict(image):
-    classifier_model_resnet = read_file("plantdiseasemodel/resnet_model.h5")
+    model_resnet = read_file("plantdiseasemodel/resnet_model.h5")
 
     with st.spinner('Loading Model...'):
-        classifier_model_resnet = tf.keras.models.load_model(r'models/resnet_model.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
+        classifier_model_resnet = tf.keras.models.load_model(r'model_resnet',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     IMAGE_SHAPE = (224, 224)
     image = cv2.resize(image, (IMAGE_SHAPE[0], IMAGE_SHAPE[1]) )
   
@@ -123,10 +123,10 @@ def resnet_predict(image):
 
 
 def cnn_predict(image):
-    classifier_model_cnn = read_file("plantdiseasemodel/cnn.h5")
+    model_cnn = read_file("plantdiseasemodel/cnn.h5")
 
     with st.spinner('Loading Model...'):
-        classifier_model_cnn = tf.keras.models.load_model(r'models/cnn.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
+        classifier_model_cnn = tf.keras.models.load_model(r'model_cnn',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     IMAGE_SHAPE = (224, 224)
     image = cv2.resize(image, (IMAGE_SHAPE[0], IMAGE_SHAPE[1]) )
   
@@ -141,10 +141,10 @@ def cnn_predict(image):
 
 
 def efficient_predict(image):
-    classifier_model_efficient = read_file("plantdiseasemodel/efficientv2.h5")
+    model_efficient = read_file("plantdiseasemodel/efficientv2.h5")
 
     with st.spinner('Loading Model...'):
-        classifier_model_efficient = tf.keras.models.load_model(r'models/efficientv2.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
+        classifier_model_efficient = tf.keras.models.load_model(r'model_efficient',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     IMAGE_SHAPE = (224, 224)
     image = cv2.resize(image, (IMAGE_SHAPE[0], IMAGE_SHAPE[1]) )
   
@@ -158,10 +158,10 @@ def efficient_predict(image):
     return {classes[class_idx]: probabilities[class_idx]}
 
 def inception_predict(image):
-    classifier_model_inception = read_file("plantdiseasemodel/inception_model.h5")
+    model_inception = read_file("plantdiseasemodel/inception_model.h5")
 
     with st.spinner('Loading Model...'):
-        classifier_model_inception = tf.keras.models.load_model(r'models/inception_model.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)   
+        classifier_model_inception = tf.keras.models.load_model(r'model_inception',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)   
     IMAGE_SHAPE = (224, 224)
     image = cv2.resize(image, (IMAGE_SHAPE[0], IMAGE_SHAPE[1]) )
   
