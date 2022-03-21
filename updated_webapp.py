@@ -88,7 +88,7 @@ def main():
         
 
 def mobilenet_predict(image):
-    classifier_model_mobilenet = read_file("https://plantdiseasemodel.s3.ap-south-1.amazonaws.com/mobilenetv1_model.h5")
+    classifier_model_mobilenet = read_file("plantdiseasemodel/mobilenetv1_model.h5")
     with st.spinner('Loading Model...'):
         classifier_model_mobilenet = tf.keras.models.load_model(r'models/mobilenetv1_model.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     print(image)
@@ -105,7 +105,7 @@ def mobilenet_predict(image):
     return {classes[class_idx]: probabilities[class_idx]}
 
 def resnet_predict(image):
-    classifier_model_resnet = read_file("https://plantdiseasemodel.s3.ap-south-1.amazonaws.com/resnet_model.h5")
+    classifier_model_resnet = read_file("plantdiseasemodel/resnet_model.h5")
 
     with st.spinner('Loading Model...'):
         classifier_model_resnet = tf.keras.models.load_model(r'models/resnet_model.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
@@ -123,7 +123,7 @@ def resnet_predict(image):
 
 
 def cnn_predict(image):
-    classifier_model_cnn = read_file("https://plantdiseasemodel.s3.ap-south-1.amazonaws.com/cnn.h5")
+    classifier_model_cnn = read_file("plantdiseasemodel/cnn.h5")
 
     with st.spinner('Loading Model...'):
         classifier_model_cnn = tf.keras.models.load_model(r'models/cnn.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
@@ -141,7 +141,7 @@ def cnn_predict(image):
 
 
 def efficient_predict(image):
-    classifier_model_efficient = read_file("https://plantdiseasemodel.s3.ap-south-1.amazonaws.com/efficientv2.h5")
+    classifier_model_efficient = read_file("plantdiseasemodel/efficientv2.h5")
 
     with st.spinner('Loading Model...'):
         classifier_model_efficient = tf.keras.models.load_model(r'models/efficientv2.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
@@ -158,7 +158,7 @@ def efficient_predict(image):
     return {classes[class_idx]: probabilities[class_idx]}
 
 def inception_predict(image):
-    classifier_model_inception = read_file("https://plantdiseasemodel.s3.ap-south-1.amazonaws.com/inception_model.h5")
+    classifier_model_inception = read_file("plantdiseasemodel/inception_model.h5")
 
     with st.spinner('Loading Model...'):
         classifier_model_inception = tf.keras.models.load_model(r'models/inception_model.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)   
