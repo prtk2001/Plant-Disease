@@ -123,7 +123,7 @@ def cnn_predict(image):
     #model_cnn = read_file("plantdiseasemodel/cnn.h5")
 
     with st.spinner('Loading Model...'):
-        classifier_model_cnn = tf.keras.models.load_model("models/cnn_model.h5",custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
+        classifier_model_cnn = tf.keras.models.load_model("models/cnn.h5",custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     IMAGE_SHAPE = (224, 224)
     image = cv2.resize(image, (IMAGE_SHAPE[0], IMAGE_SHAPE[1]) )
   
