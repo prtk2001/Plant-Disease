@@ -1,7 +1,8 @@
 import cv2
 import s3fs
 import os
-
+import zipfile
+import tempfile
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -77,7 +78,19 @@ def main():
         st.write('Inception')
         st.write('Class Name: {}',format(classname_inception))
         st.write('Confidence: {}%',format(confidence_inception))
+
+BUCKET_NAME = "plantdiseasemodel"
+
+def s3_get_keras_model(model_name: str) -> tf.keras.Model:
+      with tempfile.TemporaryDirectory() as tempdir:
         
+    
+        s3fs.get(f"{BUCKET_NAME}/{model_name}.zip", f"{tempdir}/{model_name}.zip")
+        with zipfile.ZipFile(f"{tempdir}/{model_name}.zip") as zip_ref:
+            zip_ref.extractall(f"{tempdir}/{model_name}")
+        return tf.keras.models.load_model(f"{tempdir}/{model_name}")
+
+loaded_model = s3_get_keras_model("mobilenet_model")
 
         
 
@@ -89,8 +102,8 @@ def main():
 
 def mobilenet_predict(image):
     model_mobilenet = read_file("plantdiseasemodel/mobilenetv1_model.h5")
-    with st.spinner('Loading Model...'):
-        classifier_model_mobilenet = tf.keras.models.load_model(read_file("plantdiseasemodel/mobilenetv1_model.h5"),custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
+    #with st.spinner('Loading Model...'):
+    #    classifier_model_mobilenet = tf.keras.models.load_model(read_file("plantdiseasemodel/mobilenetv1_model.h5"),custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     print(image)
     IMAGE_SHAPE = (224, 224)
     image = cv2.resize(image, (IMAGE_SHAPE[0], IMAGE_SHAPE[1]) )
@@ -99,7 +112,7 @@ def mobilenet_predict(image):
     with open('static/categories.json', 'r') as f:
         cat_to_name = json.load(f)
         classes = list(cat_to_name.values())
-    probabilities = classifier_model_mobilenet.predict(np.asarray([image]))[0]
+    probabilities = loaded_model.predict(np.asarray([image]))[0]
     class_idx = np.argmax(probabilities)
     
     return {classes[class_idx]: probabilities[class_idx]}
