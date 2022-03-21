@@ -90,7 +90,7 @@ def main():
 def mobilenet_predict(image):
     model_mobilenet = read_file("plantdiseasemodel/mobilenetv1_model.h5")
     with st.spinner('Loading Model...'):
-        classifier_model_mobilenet = tf.keras.models.load_model(model_mobilenet,custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
+        classifier_model_mobilenet = tf.keras.models.load_model(read_file("plantdiseasemodel/mobilenetv1_model.h5"),custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     print(image)
     IMAGE_SHAPE = (224, 224)
     image = cv2.resize(image, (IMAGE_SHAPE[0], IMAGE_SHAPE[1]) )
