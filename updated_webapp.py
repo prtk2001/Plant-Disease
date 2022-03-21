@@ -16,7 +16,7 @@ fs = s3fs.S3FileSystem(anon=False)
 def read_file(filename):
     with fs.open(filename) as f:
         return f.read().decode("utf-8")
-content = read_file("testbucket-jrieke/myfile.csv")
+
 
 
 hide_streamlit_style = """
