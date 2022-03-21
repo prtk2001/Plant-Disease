@@ -1,5 +1,6 @@
 import cv2
-
+import s3fs
+import os
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,7 +11,12 @@ import json
 import streamlit as st
 from PIL import Image
 
-
+fs = s3fs.S3FileSystem(anon=False)
+@st.cache(ttl=600)
+def read_file(filename):
+    with fs.open(filename) as f:
+        return f.read().decode("utf-8")
+content = read_file("testbucket-jrieke/myfile.csv")
 
 
 hide_streamlit_style = """
@@ -82,6 +88,7 @@ def main():
         
 
 def mobilenet_predict(image):
+    classifier_model_mobilenet = read_file("https://plantdiseasemodel.s3.ap-south-1.amazonaws.com/mobilenetv1_model.h5")
     with st.spinner('Loading Model...'):
         classifier_model_mobilenet = tf.keras.models.load_model(r'models/mobilenetv1_model.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     print(image)
@@ -98,6 +105,8 @@ def mobilenet_predict(image):
     return {classes[class_idx]: probabilities[class_idx]}
 
 def resnet_predict(image):
+    classifier_model_resnet = read_file("https://plantdiseasemodel.s3.ap-south-1.amazonaws.com/resnet_model.h5")
+
     with st.spinner('Loading Model...'):
         classifier_model_resnet = tf.keras.models.load_model(r'models/resnet_model.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     IMAGE_SHAPE = (224, 224)
@@ -114,6 +123,8 @@ def resnet_predict(image):
 
 
 def cnn_predict(image):
+    classifier_model_cnn = read_file("https://plantdiseasemodel.s3.ap-south-1.amazonaws.com/cnn.h5")
+
     with st.spinner('Loading Model...'):
         classifier_model_cnn = tf.keras.models.load_model(r'models/cnn.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     IMAGE_SHAPE = (224, 224)
@@ -130,6 +141,8 @@ def cnn_predict(image):
 
 
 def efficient_predict(image):
+    classifier_model_efficient = read_file("https://plantdiseasemodel.s3.ap-south-1.amazonaws.com/efficientv2.h5")
+
     with st.spinner('Loading Model...'):
         classifier_model_efficient = tf.keras.models.load_model(r'models/efficientv2.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     IMAGE_SHAPE = (224, 224)
@@ -145,6 +158,8 @@ def efficient_predict(image):
     return {classes[class_idx]: probabilities[class_idx]}
 
 def inception_predict(image):
+    classifier_model_inception = read_file("https://plantdiseasemodel.s3.ap-south-1.amazonaws.com/inception_model.h5")
+
     with st.spinner('Loading Model...'):
         classifier_model_inception = tf.keras.models.load_model(r'models/inception_model.h5',custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)   
     IMAGE_SHAPE = (224, 224)
